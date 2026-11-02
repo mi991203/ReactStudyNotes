@@ -1,24 +1,18 @@
 // 项目的根组件
 
-// App -> index.js -> public/index.html(root)
+import { useState } from "react";
 
 function App() {
 
-  // const handleClick = () => {
-  //   console.log("按钮被点击了")
-  // }
+  const [count, setCount] = useState(0)
 
-  // const handleClick = (e) => {
-  //   console.log("按钮被点击了", e)
-  // }
-
-  const handleClick = (param, e) => {
-    console.log("按钮被点击了", param, e)
+  const handleClick = () => {
+    setCount(count+1)
   }
   
   return (
     <div>
-      <button onClick={(e) => handleClick("Jack", e)}>按钮</button>
+      <button onClick={handleClick}>{count}</button>
     </div>
 
   );
