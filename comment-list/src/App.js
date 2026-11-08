@@ -3,6 +3,9 @@ import avatar from './images/bozai.png'
 import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import _ from 'lodash'
+import { v4 as uuidV4 } from 'uuid'
+import dayjs from 'dayjs'
+import classNames from 'classnames'
 
 
 /**
@@ -49,7 +52,7 @@ function useGetList() {
 }
 
 // 封装Item组件
-function Item ({ item, OnDel }) {
+function Item ({ item, onDel }) {
   return (
     <div className='reply-item'>
       {/*头像  */}
@@ -152,7 +155,7 @@ const App = () => {
           <li className="nav-title">
             <span className="nav-title-text">评论</span>
             {/* 评论数量 */}
-            <span className="total-reply">{10}</span>
+            <span className="total-reply">{commentList.length}</span>
           </li>
           <li className="nav-sort">
             {/* 高亮类名： active */}
@@ -196,7 +199,7 @@ const App = () => {
         {/* 评论列表 */}
         <div className="reply-list">
           {/* 评论项 */}
-          {commentList.map(item => <Item key={item.id} item={item} onDel={handleDel} />)}
+          {commentList.map(item => <Item key={item.rpid} item={item} onDel={handleDel} />)}
         </div>
       </div>
     </div>

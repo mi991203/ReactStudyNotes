@@ -1,7 +1,7 @@
 # go-mock
 
 通用 Mock 服务：protobuf + gRPC + grpc-gateway，SQLite 存储。
-目前提供 `react-basic` 评论案例所需的 `http://localhost:3004/list` 接口。
+目前提供 `comment-list` 评论案例所需的 `http://localhost:3004/list` 接口。
 
 ## 目录结构
 
