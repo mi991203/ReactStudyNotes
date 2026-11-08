@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package comment.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "go-mock/protocols/comment/v1;commentv1";
+
+// CommentService 评论服务，对应前端 http://localhost:3004/list
+service CommentService {
+  // 获取评论列表。type=hot 按点赞数倒序，type=time(默认) 按发布时间倒序。
+  // response_body 指定后，HTTP 响应直接是 list 数组（与 json-server 一致）。
+  rpc ListComments(ListCommentsRequest) returns (ListCommentsResponse) {
+    option (google.api.http) = {
+      get: "/list"
+      response_body: "list"
+    };
+  }
+
+  // 发布评论
+  rpc CreateComment(CreateCommentRequest) returns (Comment) {
+    option (google.api.http) = {
+      post: "/list"
+      body: "*"
+    };
+  }
+
+  // 删除评论（软删除）
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse) {
+    option (google.api.http) = {
+      delete: "/list/{rpid}"
+    };
+  }
+}
+
+message User {
+  string uid = 1;
+  string avatar = 2;
+  string uname = 3;
+}
+
+message Comment {
+  // 评论 id（int32，避免 protojson 把 int64 输出成字符串）
+  int32 rpid = 1;
+  User user = 2;
+  string content = 3;
+  // 发布时间，格式 MM-DD HH:mm
+  string ctime = 4;
+  // 点赞数
+  int32 like = 5;
+}
+
+message ListCommentsRequest {
+  // hot | time，默认 time
+  string type = 1;
+}
+
+message ListCommentsResponse {
+  repeated Comment list = 1;
+}
+
+message CreateCommentRequest {
+  string uid = 1;
+  string content = 2;
+}
+
+message DeleteCommentRequest {
+  int32 rpid = 1;
+}
+
+message DeleteCommentResponse {}
